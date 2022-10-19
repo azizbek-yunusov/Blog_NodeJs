@@ -1,0 +1,6 @@
+1. middleware orqali so'rovlar orasida funkisiyalarni ishlatish mumkin
+masalan: app.post("/posts/create", authMiddleware, storePostMiddleware, createPostController);
+
+2. middleware ishlatiganda next() yozish shart!!!
+
+3. next bu keyingisiga o'tkazish yani bu funksiya tugallangandan keyingi funkisiyaga navbat beradi
