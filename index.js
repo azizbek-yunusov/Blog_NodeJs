@@ -1,11 +1,11 @@
 const express = require("express");
-const path = require("path");
 const expressEdge = require("express-edge");
 const mongoose = require("mongoose");
-const Post = require("./models/Post");
 const fileUpload = require("express-fileupload");
 const expressSession = require("express-session");
+// sessionni mongoDBga ulash
 const mongoStore = require("connect-mongo");
+const connectFlash = require("connect-flash");
 
 const homePostController = require("./controllers/homePost");
 const getPostController = require("./controllers/getPost");
@@ -15,6 +15,7 @@ const createUserController = require("./controllers/createUser");
 const storeUserController = require("./controllers/userStore");
 const loginController = require("./controllers/login");
 const loginStoreController = require("./controllers/loginStore");
+
 const storePostMiddleware = require("./middleware/storePost");
 
 const app = express();
@@ -28,6 +29,7 @@ mongoose.connect(MongoUrl);
 
 app.use(
   expressSession({
+    // key beriladi ixtiyoriy nom
     secret: "azizbek",
     store: mongoStore.create({ mongoUrl: MongoUrl }),
   })
@@ -41,6 +43,7 @@ app.use(expressEdge.engine);
 // ma'lumotlarni json orqali olish uchun buni yozish shart
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(connectFlash());
 
 app.set("views", `${__dirname}/views`);
 

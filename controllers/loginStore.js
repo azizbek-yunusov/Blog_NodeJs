@@ -7,6 +7,7 @@ module.exports = (req, res) => {
     if (user) {
       const validPassword = bcrypt.compare(password, user.password) // compare - solishtiradi ya'ni taqqoslaydi, same - bir xillik
       if (validPassword) {
+        // cookie uchun id berilayapti "id" si bazadagi "id"ga tenglashmoqda
         req.session.userId = user._id;
         res.redirect("/")
       }

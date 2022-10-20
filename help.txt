@@ -1,0 +1,4 @@
+# app.post("/auth/log", loginStoreController) Post methodi ishlatilganda urlni ahamayati muhim bo'lmaydi yani post methodi ishlatilganda joylarda bir xil url ishlatilmaydi bu get soroviga tegishli
+
+
+expressSession foydalanuvchi ro'yhatdan o'tgandan so'ng uni eslab qolish uchun xavfsiz kutubxona

@@ -18,17 +18,24 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 offset-md-2">
+      @if(errors.length > 0)
+      <ul class="list-group my-3">
+        @each(err in errors)
+          <li class="list-group-item text-danger">{{err}}</li>
+        @endeach
+      </ul>
+    @endif
       <form action="/auth/reg" method="POST">
         <div class="form-floating">
-          <input type="text" class="form-control" name="username" placeholder="enter your username">
+          <input type="text" class="form-control" value="{{data.username || ""}}" name="username" placeholder="enter your username">
           <label>Username</label>
         </div>
         <div class="form-floating">
-          <input type="email" class="form-control" name="email" placeholder="enter your email">
+          <input type="email" class="form-control" value="{{data.email || ""}}" name="email" placeholder="enter your email">
           <label>Email</label>
         </div>
         <div class="form-floating">
-          <input type="password" class="form-control" name="password" placeholder="enter your password">
+          <input type="password" class="form-control" value="{{data.password || ""}}" name="password" placeholder="enter your password">
           <label>Password</label>
         </div> 
         <div class="form-group text-center my-4">
