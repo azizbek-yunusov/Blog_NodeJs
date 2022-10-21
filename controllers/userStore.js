@@ -19,6 +19,6 @@ module.exports = (req, res) => {
     user.save();
 
     // xatolik kuzatilmasa bosh sahifa o'tadi
-    res.redirect("/");
+    res.redirect("/login");
   });
 };

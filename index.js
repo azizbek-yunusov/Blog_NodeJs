@@ -15,12 +15,14 @@ const createUserController = require("./controllers/createUser");
 const storeUserController = require("./controllers/userStore");
 const loginController = require("./controllers/login");
 const loginStoreController = require("./controllers/loginStore");
+const logoutController = require("./controllers/logout");
 
+// Middleware
 const storePostMiddleware = require("./middleware/storePost");
+const authMiddleware = require("./middleware/auth");
+const redirectIfAuth = require("./middleware/redirect");
 
 const app = express();
-
-const authMiddleware = require("./middleware/auth");
 
 const MongoUrl =
   "mongodb+srv://azizbekjon:4B7I6zqkZocYDbl6@cluster0.q2jib.mongodb.net/node-blog-izzy";
@@ -47,6 +49,10 @@ app.use(connectFlash());
 
 app.set("views", `${__dirname}/views`);
 
+app.use((req, res, next) => {
+  app.locals.auth = req.session.userId;
+  next();
+});
 app.get("/", homePostController);
 app.get("/post/:id", getPostController);
 app.get("/posts/new", authMiddleware, postsNewController);
@@ -56,10 +62,12 @@ app.post(
   storePostMiddleware,
   createPostController
 );
-app.get("/reg", createUserController);
+app.get("/reg", redirectIfAuth, createUserController);
 app.post("/auth/reg", storeUserController);
-app.get("/login", loginController);
+app.get("/login", redirectIfAuth, loginController);
 app.post("/auth/log", loginStoreController);
+app.get("/logout", authMiddleware, logoutController);
+app.use((req, res) => res.render("not_found"));
 
 app.listen(5000, () => {
   console.log("http://localhost:5000 Server has been started on Port 5000...");

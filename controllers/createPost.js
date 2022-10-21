@@ -9,7 +9,7 @@ module.exports = (req, res) => {
       console.log(err);
     }
     // req.body orqali inputdagi barcha element olinadi
-    Post.create({ ...req.body, image: `/posts/${image.name}` }, (err, post) => {
+    Post.create({ ...req.body, image: `/posts/${image.name}`, author: req.session.userId }, (err, post) => {
       // yangi post jo'natilgandan keyin bosh sahiga redirect qilinadi
       res.redirect("/");
     })
